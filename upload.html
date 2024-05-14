@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arts & Archive</title>
+    <link rel="stylesheet" href="css/upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+
+<header id="stickyHeader" class="sticky" style="background-color: #AAAAAA;">
+    <div class="logo">
+        <a href="index.html"><img src="asset\logo.jpg" alt="Arts and Archives"></a>
+    </div>
+    <ul class="nav_links">
+        <li class="wat"><a href="watch.html">Watch</a></li>
+        <li class="ex"><a href="explore.html">Explore</a></li>
+        <li class="profile">
+            <a href="creator.html">
+                <img src="asset/profile.jpg" alt="profile" width="50" height="50">
+            </a>
+        </li>
+    </ul>
+</header>
+
+<body>
+<div class="main-container">
+    <div class="box upload-img animate__animated animate__fadeInUp">
+        <h1>Upload your image here</h1>
+        <input type="file" id="uploadImage" accept="image/*" style="background-color: #8D8DAA; border: 1px solid transparent; border-radius: 3px; text-decoration: none; color: white; display: block; width: max-content; height: 40px; line-height: 40px; text-align: center; margin-bottom: 10px; border-radius: 20px;">
+        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 300px; margin-top: 10px;">
+        <button class="custom-button-d" onclick="deleteImage()">Delete Image</button>
+    </div>
+
+    <div class="box upload-note animate__animated animate__fadeInUp">
+        <div style="border-bottom: 1px solid gray; margin-bottom: 10px; margin-top: -10px">
+            <h1>Creator's Note</h1>
+        </div>
+        <p style="margin-top: 10px; font-size: 18px; font-weight: bold;">Materials</p>
+        <ul id="materialsList" contenteditable="true"></ul>
+        <button class="custom-button" onclick="addMaterial()">Add Material</button>
+        <button class="custom-button-d" onclick="deleteMaterial()">Delete Material</button>
+        <h2 style="margin-top: 20px; margin-bottom: 5px;">Steps</h2>
+        <div style="margin-left: 10px;">
+            <ol id="stepsList" contenteditable="true"></ol>
+        </div>
+        <button class="custom-button" onclick="addStep()">Add Step</button>
+        <button class="custom-button-d" onclick="deleteStep()">Delete Step</button>
+    </div>    
+
+    <div class="box upload-description animate__animated animate__fadeInUp">
+        <h1>Description</h1>
+        <div id="descriptionContent" contenteditable="true"></div>
+        <button class="custom-button" onclick="addDescription()">Add Description</button>
+        <button class="custom-button-d" onclick="deleteDescription()">Delete Description</button>
+    </div>
+
+    <div class="box upload-resources animate__animated animate__fadeInUp">
+        <h1>Resources</h1>
+        <ul id="resourcesList" style="list-style: none; padding: 0;"></ul>
+        <button class="custom-button" onclick="addResource()">Add Resource</button>
+        <button class="custom-button-d" onclick="deleteResource()">Delete Resource</button>
+    </div>
+
+    <div class="submit">
+        <button class="custom-button-s" onclick="showNotification()">Submit</button>
+        <div id="notification" class="notification">Successfully Submitted!</div>
+        <button class="custom-button-d">Cancel</button>
+    </div>
+</div>  
+
+<script>
+    function addMaterial() {
+        var materialsList = document.getElementById('materialsList');
+        var newItem = prompt('Enter the new material:');
+        if (newItem) {
+            var li = document.createElement('li');
+            li.textContent = newItem;
+            materialsList.appendChild(li);
+        }
+    }
+
+    function deleteMaterial() {
+        var materialsList = document.getElementById('materialsList');
+        if (materialsList.childNodes.length > 0) {
+            materialsList.removeChild(materialsList.lastChild);
+        }
+    }
+
+    function addStep() {
+        var stepsList = document.getElementById('stepsList');
+        var newItem = prompt('Enter the new step:');
+        if (newItem) {
+            var li = document.createElement('li');
+            li.textContent = newItem;
+            stepsList.appendChild(li);
+        }
+    }
+
+    function deleteStep() {
+        var stepsList = document.getElementById('stepsList');
+        if (stepsList.childNodes.length > 0) {
+            stepsList.removeChild(stepsList.lastChild);
+        }
+    }
+
+    function addDescription() {
+        var descriptionContent = document.getElementById('descriptionContent');
+        var newParagraph = document.createElement('p');
+        newParagraph.textContent = prompt('Enter the new description:');
+        descriptionContent.appendChild(newParagraph);
+    }
+
+    function deleteDescription() {
+        var descriptionContent = document.getElementById('descriptionContent');
+        if (descriptionContent.childNodes.length > 0) {
+            descriptionContent.removeChild(descriptionContent.lastChild);
+        }
+    }
+
+    function addResource() {
+        var resourcesList = document.getElementById('resourcesList');
+        var newResource = prompt('Enter the new resource (title and link separated by comma):');
+        if (newResource) {
+            var resourceParts = newResource.split(',');
+            if (resourceParts.length === 2) {
+                var title = resourceParts[0].trim();
+                var link = resourceParts[1].trim();
+
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = link;
+                a.textContent = title;
+                li.appendChild(a);
+                resourcesList.appendChild(li);
+            } else {
+                alert('Please enter the resource in the correct format (title and link separated by comma).');
+            }
+        }
+    }
+
+    function deleteResource() {
+        var resourcesList = document.getElementById('resourcesList');
+        if (resourcesList.childNodes.length > 0) {
+            resourcesList.removeChild(resourcesList.lastChild);
+        }
+    }
+
+    function deleteImage() {
+        var imagePreview = document.getElementById('imagePreview');
+        var uploadImage = document.getElementById('uploadImage');
+
+        uploadImage.value = null;
+
+        if (imagePreview) {
+            imagePreview.style.display = 'none';
+
+            var uploadText = document.getElementById('uploadText');
+            if (!uploadText) {
+                uploadText = document.createElement('h1');
+                uploadText.id = 'uploadText';
+                imagePreview.parentNode.insertBefore(uploadText, imagePreview);
+            }
+
+            imagePreview.parentNode.removeChild(imagePreview);
+        }
+
+        uploadImage.style.display = 'block';
+    }
+
+    function showNotification() {
+        var notification = document.getElementById('notification');
+        notification.style.display = 'block';
+        setTimeout(function() {
+            notification.style.display = 'none';
+            window.location.href = 'artpiece.html';
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>

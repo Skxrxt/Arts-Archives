@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arts & Archive</title>
+    <link rel="stylesheet" href="css/artpiece.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<header id="stickyHeader" class="sticky" style="background-color: #AAAAAA;">
+    <div class="logo">
+        <a href="index.html"><img src="asset\logo.jpg" alt="Arts and Archives"></a>
+    </div>
+    <ul class="nav_links">
+        <li class="wat"><a href="watch.html">Watch</a></li>
+        <li class="ex"><a href="explore.html">Explore</a></li>
+        <li class="profile">
+            <a href="creator.html">
+                <img src="asset/profile.jpg" alt="profile" width="50" height="50">
+            </a>
+        </li>
+        </ul>
+</header>
+
+<body>
+
+<div class="main-container animate__animated animate__fadeIn">
+    <div class="img-title">
+        <h1>Glue Butterfly Painting</h1>
+        <p style="font-weight: lighter; font-size: 18px;">By: Katarina</p>
+    </div>
+    <div class="grid-container">
+        <div class="left animate__animated animate__fadeInLeft">
+            <div class="img">
+                <img src="asset/1.jpg" alt="img here">
+            </div>
+        </div>
+        <div class="creator-note animate__animated animate__fadeInRight">
+            <div class="note-header" style="border-bottom: 1px solid gray; margin-bottom: 10px; margin-top:-10px">
+                <h1 style="color: #28282B">Creator's Note</h1>
+            </div>
+            <p style="margin-top: 10px; font-size: 18px; font-weight: bold;">Materials</p>
+            <ul id="materialsList" style="line-height: 1.6;"> 
+                <li>Canvas</li>
+                <li>Hot glue stick</li>
+                <li>Paint</li>
+                <li>Paint brushes</li>
+            </ul>
+            <h2 style="margin-top: 20px; margin-bottom: 5px;">Steps</h2>
+            <div style="margin-left: 10px; line-height: 1.6;">
+                <ol>
+                    <li>Paint the background with the color of your choice.</li>
+                    <li>Trace the Butterfly pattern with hot glue stick.</li>
+                    <li>Wait for it to cool down.</li>
+                    <li>Paint the inside of the Butterfly.</li>
+                    <li>Paint the hot glue stick.</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="note animate__animated animate__fadeInRight">
+            <div class="note-header" style="border-bottom: 1px solid gray; margin-top:-10px">
+                <h1 contenteditable="false">Your Notes</h1>
+            </div>
+            <div id="checkboxContainer" class="checkbox-container">
+                <p style="margin-top: 10px; font-size: 18px; font-weight: bold; line-height: 1.6;">Materials</p>
+                <!-- Checkbox and label will be added here automatically -->
+            </div>
+            <textarea id="userNotes" placeholder="Type your notes here... "></textarea>            
+        </div>
+    </div>
+
+    <div class="resources animate__animated animate__fadeInUp">
+        <h1>Description</h1>
+        <p style="text-align: justify; text-indent: 20px;">This project involves creating a vibrant butterfly art piece using hot glue and paint. Start by painting the background with a color of your choice to set the stage for your artwork. Next, trace the butterfly pattern on the background using a hot glue stick, ensuring the lines are well-defined. Allow the hot glue to cool and harden completely before moving to the next step. Once the glue is set, paint the inside of the butterfly, carefully staying within the glued outlines, and finish by painting over the hot glue lines to add dimension and detail to your butterfly.</p>
+    </div>
+    
+    <div class="resources animate__animated animate__fadeInUp">
+        <h1>Resources</h1>
+        <ul>
+            <li><a href="https://www.example.com">Painting Tutorial</a></li>
+            <li><a href="https://www.youtube.com/watch?v=79e26eI70CY">Color Theory</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        // Get the materials list from the creator's note
+        const materialsList = document.getElementById('materialsList');
+        // Get the checkbox container in your notes section
+        const checkboxContainer = document.getElementById('checkboxContainer');
+    
+        // Loop through each material in the list and create a checkbox for it
+        materialsList.querySelectorAll('li').forEach((material, index) => {
+            const checkboxId = 'note' + (index + 1);
+            const checkboxLabel = material.textContent.trim();
+            const checkboxElement = document.createElement('input');
+            checkboxElement.type = 'checkbox';
+            checkboxElement.id = checkboxId;
+            const labelElement = document.createElement('label');
+            labelElement.htmlFor = checkboxId;
+            labelElement.textContent = checkboxLabel;
+            
+            // Add event listener to each checkbox for styling
+            checkboxElement.addEventListener('change', function () {
+                if (this.checked) {
+                    labelElement.style.textDecoration = 'line-through';
+                    labelElement.style.color = '#888';
+                } else {
+                    labelElement.style.textDecoration = 'none';
+                    labelElement.style.color = ''; // Reset color
+                }
+            });
+    
+            checkboxContainer.appendChild(checkboxElement);
+            checkboxContainer.appendChild(labelElement);
+            checkboxContainer.appendChild(document.createElement('br'));
+        });
+    };
+</script>
+
+</body>
+</html>
